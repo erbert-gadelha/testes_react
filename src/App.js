@@ -1,96 +1,51 @@
 import React, { Component }  from 'react';
 import './App.css';
+//import './Popup.js';
 
-class InputNumber extends React.Component {
+import PopUp from './PopUp.js'; 
+require('./PopUp.js');
+
+
+
+class Header extends React.Component{
+
   state = {
-    value: 0,
+    value: '',
+    hidden: true,
   }
 
   constructor() {
     super();
     
-    this.refresh = this.refresh.bind(this);
-    this.increment = this.increment.bind(this);
-    this.decrement = this.decrement.bind(this);
+    this.fechar = this.fechar.bind(this);
+    this.clique = this.clique.bind(this);
+    this.updateInputValue = this.updateInputValue.bind(this);
   }
-  
+
   get value() {
     return this.state.value;
   }
 
-  refresh() {
-    this.setState({ value: this.value - 1 });
-  }
+  fechar(retorno) {
+    this.setState({hidden: true});
 
-  increment() {
-    const { max } = this.props;
+    if(retorno.quantidade == 0)
+      return;
     
-    if (typeof max === 'number' && this.value >= max) return;
-    
-    this.setState({ value: this.value + 1 });
-  }
-
-  decrement() {
-    const { min } = this.props;
-    
-    if (typeof min === 'number' && this.value <= min) return;
-    
-    this.setState({ value: this.value - 1 });
-  }
-  
-  render() {
-    return (
-      <div className="input_number" style={this.props.style}>
-        <button type="button" onClick={this.decrement}>&minus;</button>
-        <span>{this.value}</span>
-        <button type="button" onClick={this.increment}>&#43;</button>     
-      </div>
-    )
-  }
-}
-
-
-
-function popup() {
-  let inputValue = 3;
-  let updateInputValue = (v) => {
-    inputValue += v;
-  }
-
-  return <div className='popup_bkg'>
-    <div className='popup_box'>
-        Escolha a data
-        <input
-            type="date"
-            placeholder="MM/DD/AAAA">
-        </input>
-        <br/>
-        Quantidade de sacos
-        <InputNumber min={0} max={100}/>
-        <br/>
-        <button>Submeter</button>
-    </div>
-  </div>;
-}
-
-
-function header() {
-
-  let inputValue;
-  let clique = () => {
-    window.alert("pesquisar<\"" + inputValue + "\">");
-    popup();
+    window.alert('data: '+retorno.data+'\nquantidade: '+retorno.quantidade);
   };
 
-  let abrirPopup = () => {
+  clique () {
+    this.setState({hidden: false});
+    //window.alert("pesquisar<\"" + this.state.value + "\">");
+  };
 
-  }
-  
-  let updateInputValue = (evt) => {
+  updateInputValue (evt) {
     const val = evt.target.value;
-    inputValue = val;
+    this.setState({value: val});
   }
 
+  render() {
   return (
     <div className="header">
         reciclarte
@@ -100,27 +55,29 @@ function header() {
                 type="text"
                 className='text_input'
                 placeholder="Pesquisar"
-                value={inputValue}
-                onChange={evt => updateInputValue(evt)}>
+                value={this.state.value}
+                onChange={evt => this.updateInputValue(evt)}
+              />
+            
+            <button className='search_buttom' onClick={this.clique}/>
 
-            </input>
-            <button className='search_buttom' onClick={clique}>
-              
-            </button>
+
+            {this.state.hidden?'':<PopUp fechar={this.fechar}></PopUp>}
+            
         </div>
         
     </div>
   );
+  }
 }
+
+//{this.state.hidden?'':<PopUp fechar={this.fechar}></PopUp>}
 
 
 function App() {
   return  <div>
 
-              {header()}
-              {popup()}
-
-
+              <Header/>
 
           </div>;
 }
