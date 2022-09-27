@@ -41,12 +41,54 @@ export default class Header extends React.Component {
     }
   
     render() {
+
+      var header_bar = {
+        display: "flex",
+        "align-items": "center",
+        "justify-content": "center",
+        "flex-direction": "column",
+        "text-align": "center",
+        "font-size": "30px",
+      
+        "background-color": "rgb(61, 184, 93)",
+        padding: "0 0 15px",
+        color: "white",
+        width: "100%"
+      };
+
+      var header_input = {
+        display: "flex",
+        "align-items": "center",
+        "justify-content": "center",
+        "flex-direction": "row",
+        "text-align": "center",
+        "border-radius": "8px",
+        "background-color": "white",
+        padding: "2px 5px 2px",
+      };
+
+      var inpt = {
+        width: "100%",
+        "background-color": "transparent",
+        border: "none",
+        outline: "none",
+        padding: "5px 5px 5px",
+        "font-size": "17px",
+        color: "black"
+      };
+
+      var header_btn = {
+        height: "20px",
+        width: "20px"
+      };
+
+
     return (
-      <div className="header">
+      <div style={header_bar}>
           reciclarte
   
-          <div className='search_bar'>
-              <input
+          <div style={header_input}>
+              <input style={inpt}
                   type="text"
                   className='text_input'
                   placeholder="Pesquisar"
@@ -54,7 +96,7 @@ export default class Header extends React.Component {
                   onChange={evt => this.updateInputValue(evt)}
                 />
               
-              <button className='search_buttom' onClick={this.clique}/>
+              <button style={header_btn} onClick={this.clique}/>
   
   
               {this.state.hidden?'':<PopUp fechar={this.fechar}></PopUp>}
