@@ -139,11 +139,10 @@ export default class PopUp extends React.Component {
     'flex-direction': 'row',
     'justify-content': 'center',
     'align-items': 'center',
-    gap: '30px',
+    gap: '18px',
   
     width: '80px',
   }
-
 
   var input_number_button = {
     'background-color': 'transparent',
